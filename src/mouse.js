@@ -159,7 +159,7 @@
 
 				var x = scaleX * (clientX - Math.round(boundingRect.left));
 				var y = scaleY * (clientY - Math.round(boundingRect.top));
-                
+
                 if (!!window.devicePixelRatio && window.devicePixelRatio !== 1) {
                     return { x: x / window.devicePixelRatio, y: y / window.devicePixelRatio };
                 } else {
