@@ -2,6 +2,12 @@
 
 	// Define the class
 	var touch = function () {
+
+        var isTouch = ("ontouchstart" in window || "createTouch" in document);
+
+        if ('maxTouchPoints' in navigator) {
+            isTouch = isTouch && navigator.maxTouchPoints > 0;
+        }
 		
 		// Return an object when instantiated
 		return {
@@ -11,7 +17,7 @@
 			touchState: "up",
 			canvasFocused: false,
 			canvasHovered: false,
-			isTouch: ("ontouchstart" in window || "createTouch" in document),
+			isTouch: isTouch,
 			dblTapInterval: 500,
 
 			init: function () {
@@ -207,8 +213,12 @@
 					x = this.x;
 					y = this.y;
 				}
-				
-				return { x: x, y: y };
+
+                if (!!window.devicePixelRatio && window.devicePixelRatio !== 1) {
+                    return { x: x / window.devicePixelRatio, y: y / window.devicePixelRatio };
+                } else {
+                    return { x: x, y: y };
+                }
 			},
 
 			updatePos: function (e) {

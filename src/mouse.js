@@ -159,8 +159,12 @@
 
 				var x = scaleX * (clientX - Math.round(boundingRect.left));
 				var y = scaleY * (clientY - Math.round(boundingRect.top));
-
-				return { x: x, y: y };
+                
+                if (!!window.devicePixelRatio && window.devicePixelRatio !== 1) {
+                    return { x: x / window.devicePixelRatio, y: y / window.devicePixelRatio };
+                } else {
+                    return { x: x, y: y };
+                }
 			},
 
 			updatePos: function (e) {
